@@ -16,6 +16,11 @@
 		351DD8881D5C1EC800AAA9CF /* weiboTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 351DD8871D5C1EC800AAA9CF /* weiboTests.m */; };
 		351DD8931D5C1EC800AAA9CF /* weiboUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 351DD8921D5C1EC800AAA9CF /* weiboUITests.m */; };
 		351DD8A21D5C320D00AAA9CF /* IWTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 351DD8A11D5C320D00AAA9CF /* IWTabBarController.m */; };
+		35DF81241D5D703B008D19B7 /* IWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DF81231D5D703B008D19B7 /* IWTabBar.m */; };
+		35DF81271D5D7256008D19B7 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DF81261D5D7256008D19B7 /* UIView+Extension.m */; };
+		35DF812B1D5DCBF2008D19B7 /* IWHomeViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DF812A1D5DCBF2008D19B7 /* IWHomeViewCtrl.m */; };
+		35DF812E1D5DCD5C008D19B7 /* IWHomeTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DF812D1D5DCD5C008D19B7 /* IWHomeTitleButton.m */; };
+		35DF81311D5DD2F4008D19B7 /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DF81301D5DD2F4008D19B7 /* UIBarButtonItem+Extension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +59,17 @@
 		351DD8941D5C1EC800AAA9CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		351DD8A01D5C320D00AAA9CF /* IWTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWTabBarController.h; sourceTree = "<group>"; };
 		351DD8A11D5C320D00AAA9CF /* IWTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWTabBarController.m; sourceTree = "<group>"; };
+		35DF81221D5D703B008D19B7 /* IWTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWTabBar.h; sourceTree = "<group>"; };
+		35DF81231D5D703B008D19B7 /* IWTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWTabBar.m; sourceTree = "<group>"; };
+		35DF81251D5D7256008D19B7 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		35DF81261D5D7256008D19B7 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		35DF81281D5D7625008D19B7 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		35DF81291D5DCBF2008D19B7 /* IWHomeViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWHomeViewCtrl.h; sourceTree = "<group>"; };
+		35DF812A1D5DCBF2008D19B7 /* IWHomeViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWHomeViewCtrl.m; sourceTree = "<group>"; };
+		35DF812C1D5DCD5C008D19B7 /* IWHomeTitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWHomeTitleButton.h; sourceTree = "<group>"; };
+		35DF812D1D5DCD5C008D19B7 /* IWHomeTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWHomeTitleButton.m; sourceTree = "<group>"; };
+		35DF812F1D5DD2F4008D19B7 /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
+		35DF81301D5DD2F4008D19B7 /* UIBarButtonItem+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Extension.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +126,16 @@
 				351DD8741D5C1EC800AAA9CF /* ViewController.m */,
 				351DD8A01D5C320D00AAA9CF /* IWTabBarController.h */,
 				351DD8A11D5C320D00AAA9CF /* IWTabBarController.m */,
+				35DF81251D5D7256008D19B7 /* UIView+Extension.h */,
+				35DF81261D5D7256008D19B7 /* UIView+Extension.m */,
+				35DF812F1D5DD2F4008D19B7 /* UIBarButtonItem+Extension.h */,
+				35DF81301D5DD2F4008D19B7 /* UIBarButtonItem+Extension.m */,
+				35DF81221D5D703B008D19B7 /* IWTabBar.h */,
+				35DF81231D5D703B008D19B7 /* IWTabBar.m */,
+				35DF81291D5DCBF2008D19B7 /* IWHomeViewCtrl.h */,
+				35DF812A1D5DCBF2008D19B7 /* IWHomeViewCtrl.m */,
+				35DF812C1D5DCD5C008D19B7 /* IWHomeTitleButton.h */,
+				35DF812D1D5DCD5C008D19B7 /* IWHomeTitleButton.m */,
 				351DD8761D5C1EC800AAA9CF /* Main.storyboard */,
 				351DD8791D5C1EC800AAA9CF /* Assets.xcassets */,
 				351DD87B1D5C1EC800AAA9CF /* LaunchScreen.storyboard */,
@@ -123,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				351DD86E1D5C1EC800AAA9CF /* main.m */,
+				35DF81281D5D7625008D19B7 /* PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -279,8 +306,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35DF81271D5D7256008D19B7 /* UIView+Extension.m in Sources */,
+				35DF812B1D5DCBF2008D19B7 /* IWHomeViewCtrl.m in Sources */,
 				351DD8751D5C1EC800AAA9CF /* ViewController.m in Sources */,
+				35DF81241D5D703B008D19B7 /* IWTabBar.m in Sources */,
 				351DD8721D5C1EC800AAA9CF /* AppDelegate.m in Sources */,
+				35DF812E1D5DCD5C008D19B7 /* IWHomeTitleButton.m in Sources */,
+				35DF81311D5DD2F4008D19B7 /* UIBarButtonItem+Extension.m in Sources */,
 				351DD86F1D5C1EC800AAA9CF /* main.m in Sources */,
 				351DD8A21D5C320D00AAA9CF /* IWTabBarController.m in Sources */,
 			);
@@ -424,6 +456,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/weibo/PrefixHeader.pch";
 				INFOPLIST_FILE = weibo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hejianxin.weibo;
@@ -436,6 +469,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/weibo/PrefixHeader.pch";
 				INFOPLIST_FILE = weibo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hejianxin.weibo;
@@ -508,6 +542,7 @@
 				351DD8991D5C1EC800AAA9CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		351DD89A1D5C1EC800AAA9CF /* Build configuration list for PBXNativeTarget "weiboTests" */ = {
 			isa = XCConfigurationList;
@@ -516,6 +551,7 @@
 				351DD89C1D5C1EC800AAA9CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		351DD89D1D5C1EC800AAA9CF /* Build configuration list for PBXNativeTarget "weiboUITests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +560,7 @@
 				351DD89F1D5C1EC800AAA9CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

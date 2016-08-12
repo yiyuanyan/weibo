@@ -1,0 +1,13 @@
+//
+//  PrefixHeader.pch
+//  weibo
+//
+//  Created by 何建新 on 16/8/12.
+//  Copyright © 2016年 何建新. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+#import "UIView+Extension.h"
+#import "UIBarButtonItem+Extension.h"
+#endif /* PrefixHeader_pch */

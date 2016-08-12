@@ -7,8 +7,9 @@
 //
 
 #import "IWTabBarController.h"
-
-@interface IWTabBarController ()
+#import "IWHomeViewCtrl.h"
+#import "IWTabBar.h"
+@interface IWTabBarController ()<IWTabBarDelegate>
 
 @end
 
@@ -16,8 +17,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    //初始化一个自己的tabbar
+    IWTabBar *tabbar = [[IWTabBar alloc] init];
+    tabbar.delegate = self;
+    //通过KVC去设置只读的属性self.tabBar是只读的
+    [self setValue:tabbar forKey:@"tabBar"];
+    
     //添加4个自控制器
-    UITableViewController *homeCtrl = [UITableViewController new];
+    IWHomeViewCtrl *homeCtrl = [IWHomeViewCtrl new];
     [self addChildViewCtrl:homeCtrl imageName:@"tabbar_home" title:@"首页"];
     
     UITableViewController *messageCtrl = [UITableViewController new];
@@ -28,22 +37,23 @@
     
     UITableViewController *profileCtrl = [UITableViewController new];
     [self addChildViewCtrl:profileCtrl imageName:@"tabbar_profile" title:@"我"];
+    
 }
 //自定义方法，设置tabbaritem的标题与图片
 -(void)addChildViewCtrl:(UIViewController *)ctrl imageName:(NSString *)imageName title:(NSString *)title{
+    
     //按钮文字
-    ctrl.tabBarItem.title = title;
+    //ctrl.tabBarItem.title = title;
+    ctrl.title = title;
     //按钮图片，imageWithRenderingMode:状态 为取消默认渲染图片颜色
     ctrl.tabBarItem.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     //按钮选中状态下的图片
     ctrl.tabBarItem.selectedImage = [[UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",imageName]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    //添加文字属性，字典形式
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    dic[NSForegroundColorAttributeName] = [UIColor orangeColor];
-    //把文字属性添加到tabbaritem的titleTextAttributes属性中
-    [ctrl.tabBarItem setTitleTextAttributes:dic forState:UIControlStateSelected];
+    //设置tabBar的文字颜色
+    self.tabBar.tintColor = [UIColor orangeColor];
+    UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:ctrl];
     
-    [self addChildViewController:ctrl];
+    [self addChildViewController:navCtrl];
 }
 /*
 #pragma mark - Navigation
@@ -54,5 +64,8 @@
     // Pass the selected object to the new view controller.
 }
 */
-
+//其他类里面实现代理方法
+-(void)tabBar:(IWTabBar *)tabbar plusBtnDidClicked:(UIButton *)btn{
+    NSLog(@"%s",__func__);
+}
 @end
