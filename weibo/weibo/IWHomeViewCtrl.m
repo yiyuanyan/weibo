@@ -7,6 +7,8 @@
 // 首页控制器
 
 #import "IWHomeViewCtrl.h"
+#import "IWTemp2ViewCtrl.h"
+
 #import "IWHomeTitleButton.h"
 @interface IWHomeViewCtrl ()
 
@@ -41,6 +43,8 @@
 
 -(void)friendsearch{
     NSLog(@"%s",__func__);
+    IWTemp2ViewCtrl *temp2 = [IWTemp2ViewCtrl new];
+    [self.navigationController pushViewController:temp2 animated:YES];
 }
 -(void)pop{
     NSLog(@"%s",__func__);

@@ -16,6 +16,8 @@
 		351DD8881D5C1EC800AAA9CF /* weiboTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 351DD8871D5C1EC800AAA9CF /* weiboTests.m */; };
 		351DD8931D5C1EC800AAA9CF /* weiboUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 351DD8921D5C1EC800AAA9CF /* weiboUITests.m */; };
 		351DD8A21D5C320D00AAA9CF /* IWTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 351DD8A11D5C320D00AAA9CF /* IWTabBarController.m */; };
+		355796601D6BE08A0033935A /* IWTemp2ViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3557965F1D6BE08A0033935A /* IWTemp2ViewCtrl.m */; };
+		355796631D6BE0990033935A /* IWTemp3ViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 355796621D6BE0990033935A /* IWTemp3ViewCtrl.m */; };
 		35DF81241D5D703B008D19B7 /* IWTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DF81231D5D703B008D19B7 /* IWTabBar.m */; };
 		35DF81271D5D7256008D19B7 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DF81261D5D7256008D19B7 /* UIView+Extension.m */; };
 		35DF812B1D5DCBF2008D19B7 /* IWHomeViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 35DF812A1D5DCBF2008D19B7 /* IWHomeViewCtrl.m */; };
@@ -59,6 +61,10 @@
 		351DD8941D5C1EC800AAA9CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		351DD8A01D5C320D00AAA9CF /* IWTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWTabBarController.h; sourceTree = "<group>"; };
 		351DD8A11D5C320D00AAA9CF /* IWTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWTabBarController.m; sourceTree = "<group>"; };
+		3557965E1D6BE08A0033935A /* IWTemp2ViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWTemp2ViewCtrl.h; sourceTree = "<group>"; };
+		3557965F1D6BE08A0033935A /* IWTemp2ViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWTemp2ViewCtrl.m; sourceTree = "<group>"; };
+		355796611D6BE0990033935A /* IWTemp3ViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWTemp3ViewCtrl.h; sourceTree = "<group>"; };
+		355796621D6BE0990033935A /* IWTemp3ViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWTemp3ViewCtrl.m; sourceTree = "<group>"; };
 		35DF81221D5D703B008D19B7 /* IWTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWTabBar.h; sourceTree = "<group>"; };
 		35DF81231D5D703B008D19B7 /* IWTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWTabBar.m; sourceTree = "<group>"; };
 		35DF81251D5D7256008D19B7 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
@@ -136,6 +142,10 @@
 				35DF812A1D5DCBF2008D19B7 /* IWHomeViewCtrl.m */,
 				35DF812C1D5DCD5C008D19B7 /* IWHomeTitleButton.h */,
 				35DF812D1D5DCD5C008D19B7 /* IWHomeTitleButton.m */,
+				3557965E1D6BE08A0033935A /* IWTemp2ViewCtrl.h */,
+				3557965F1D6BE08A0033935A /* IWTemp2ViewCtrl.m */,
+				355796611D6BE0990033935A /* IWTemp3ViewCtrl.h */,
+				355796621D6BE0990033935A /* IWTemp3ViewCtrl.m */,
 				351DD8761D5C1EC800AAA9CF /* Main.storyboard */,
 				351DD8791D5C1EC800AAA9CF /* Assets.xcassets */,
 				351DD87B1D5C1EC800AAA9CF /* LaunchScreen.storyboard */,
@@ -309,9 +319,11 @@
 				35DF81271D5D7256008D19B7 /* UIView+Extension.m in Sources */,
 				35DF812B1D5DCBF2008D19B7 /* IWHomeViewCtrl.m in Sources */,
 				351DD8751D5C1EC800AAA9CF /* ViewController.m in Sources */,
+				355796631D6BE0990033935A /* IWTemp3ViewCtrl.m in Sources */,
 				35DF81241D5D703B008D19B7 /* IWTabBar.m in Sources */,
 				351DD8721D5C1EC800AAA9CF /* AppDelegate.m in Sources */,
 				35DF812E1D5DCD5C008D19B7 /* IWHomeTitleButton.m in Sources */,
+				355796601D6BE08A0033935A /* IWTemp2ViewCtrl.m in Sources */,
 				35DF81311D5DD2F4008D19B7 /* UIBarButtonItem+Extension.m in Sources */,
 				351DD86F1D5C1EC800AAA9CF /* main.m in Sources */,
 				351DD8A21D5C320D00AAA9CF /* IWTabBarController.m in Sources */,

@@ -8,6 +8,11 @@
 
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
+#define RGBA(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+
 #import "UIView+Extension.h"
 #import "UIBarButtonItem+Extension.h"
+
+
+
 #endif /* PrefixHeader_pch */

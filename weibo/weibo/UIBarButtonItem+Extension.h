@@ -10,4 +10,6 @@
 
 @interface UIBarButtonItem (Extension)
 +(instancetype)itemWithImageName:(NSString *)imageName target:(id)target action:(SEL)action;
+
++(instancetype)itemWithImageName:(NSString *)imageName target:(id)target action:(SEL)action title:(NSString *)title;
 @end
