@@ -9,6 +9,7 @@
 #import "IWTabBarController.h"
 #import "IWHomeViewCtrl.h"
 #import "IWTabBar.h"
+#import "IWNavigationController.h"
 @interface IWTabBarController ()<IWTabBarDelegate>
 
 @end
@@ -51,7 +52,7 @@
     ctrl.tabBarItem.selectedImage = [[UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",imageName]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     //设置tabBar的文字颜色
     self.tabBar.tintColor = [UIColor orangeColor];
-    UINavigationController *navCtrl = [[UINavigationController alloc] initWithRootViewController:ctrl];
+    IWNavigationController *navCtrl = [[IWNavigationController alloc] initWithRootViewController:ctrl];
     
     [self addChildViewController:navCtrl];
 }

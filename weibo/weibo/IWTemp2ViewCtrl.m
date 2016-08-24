@@ -19,7 +19,7 @@
     // Do any additional setup after loading the view.
     self.title = @"IWemp2ViewCtrl";
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithImageName:@"navigationbar_back_withtext" target:self action:@selector(back) title:@"首页"];
+    //self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithImageName:@"navigationbar_back_withtext" target:self action:@selector(back) title:@"首页"];
 }
 -(void)back{
     [self.navigationController popViewControllerAnimated:YES];
