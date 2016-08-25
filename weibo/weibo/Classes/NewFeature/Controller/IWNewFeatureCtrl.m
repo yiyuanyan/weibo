@@ -7,7 +7,7 @@
 //
 
 #import "IWNewFeatureCtrl.h"
-
+#import "IWTabBarController.h"
 @interface IWNewFeatureCtrl ()<UIScrollViewDelegate>
 @property(nonatomic, weak)UIPageControl *pageControl;
 @end
@@ -64,6 +64,9 @@
     enterBtn.centerX = imageView.width * 0.5;
     enterBtn.y = imageView.height - 150;
     [enterBtn setTitle:@"进入微博" forState:UIControlStateNormal];
+    
+    [enterBtn addTarget:self action:@selector(enterBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
     [imageView addSubview:enterBtn];
     
     UIButton *shareBtn = [[UIButton alloc] init];
@@ -91,5 +94,10 @@
 //点击后让按钮状态取反
 -(void)shareBtnClick:(UIButton *)btn{
     btn.selected = !btn.selected;
+}
+-(void)enterBtnClick:(UIButton *)btn{
+    //进入首页
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    window.rootViewController = [IWTabBarController new];
 }
 @end

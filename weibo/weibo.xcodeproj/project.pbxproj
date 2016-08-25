@@ -13,6 +13,7 @@
 		351DD8881D5C1EC800AAA9CF /* weiboTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 351DD8871D5C1EC800AAA9CF /* weiboTests.m */; };
 		351DD8931D5C1EC800AAA9CF /* weiboUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 351DD8921D5C1EC800AAA9CF /* weiboUITests.m */; };
 		3529FE151D6E9AF2002FDF13 /* IWNewFeatureCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3529FE141D6E9AF2002FDF13 /* IWNewFeatureCtrl.m */; };
+		3529FE1A1D6EF15A002FDF13 /* IWOAuthViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3529FE191D6EF15A002FDF13 /* IWOAuthViewCtrl.m */; };
 		35AEA7201D6D777E00FF9522 /* IWDiscoverViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 35AEA6F11D6D777E00FF9522 /* IWDiscoverViewCtrl.m */; };
 		35AEA7211D6D777E00FF9522 /* IWHomeViewCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 35AEA6F71D6D777E00FF9522 /* IWHomeViewCtrl.m */; };
 		35AEA7221D6D777E00FF9522 /* IWHomeTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 35AEA6FB1D6D777E00FF9522 /* IWHomeTitleButton.m */; };
@@ -61,6 +62,8 @@
 		351DD8941D5C1EC800AAA9CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3529FE131D6E9AF2002FDF13 /* IWNewFeatureCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWNewFeatureCtrl.h; sourceTree = "<group>"; };
 		3529FE141D6E9AF2002FDF13 /* IWNewFeatureCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWNewFeatureCtrl.m; sourceTree = "<group>"; };
+		3529FE181D6EF15A002FDF13 /* IWOAuthViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWOAuthViewCtrl.h; sourceTree = "<group>"; };
+		3529FE191D6EF15A002FDF13 /* IWOAuthViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWOAuthViewCtrl.m; sourceTree = "<group>"; };
 		35AEA6F01D6D777E00FF9522 /* IWDiscoverViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWDiscoverViewCtrl.h; sourceTree = "<group>"; };
 		35AEA6F11D6D777E00FF9522 /* IWDiscoverViewCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWDiscoverViewCtrl.m; sourceTree = "<group>"; };
 		35AEA6F61D6D777E00FF9522 /* IWHomeViewCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWHomeViewCtrl.h; sourceTree = "<group>"; };
@@ -193,9 +196,27 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		3529FE161D6EF141002FDF13 /* OAuth */ = {
+			isa = PBXGroup;
+			children = (
+				3529FE171D6EF141002FDF13 /* Controller */,
+			);
+			path = OAuth;
+			sourceTree = "<group>";
+		};
+		3529FE171D6EF141002FDF13 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3529FE181D6EF15A002FDF13 /* IWOAuthViewCtrl.h */,
+				3529FE191D6EF15A002FDF13 /* IWOAuthViewCtrl.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		35AEA6ED1D6D777E00FF9522 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				3529FE161D6EF141002FDF13 /* OAuth */,
 				3529FE111D6E9AB8002FDF13 /* NewFeature */,
 				35AEA6EE1D6D777E00FF9522 /* Discover */,
 				35AEA6F41D6D777E00FF9522 /* Home */,
@@ -563,6 +584,7 @@
 			files = (
 				35AEA72C1D6D777E00FF9522 /* IWTemp3ViewCtrl.m in Sources */,
 				35AEA7261D6D777E00FF9522 /* IWNavigationController.m in Sources */,
+				3529FE1A1D6EF15A002FDF13 /* IWOAuthViewCtrl.m in Sources */,
 				351DD8721D5C1EC800AAA9CF /* AppDelegate.m in Sources */,
 				35AEA72B1D6D777E00FF9522 /* IWTemp2ViewCtrl.m in Sources */,
 				35AEA7241D6D777E00FF9522 /* UIView+Extension.m in Sources */,
