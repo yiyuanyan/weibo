@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "IWTabBarController.h"
+#import "IWNewFeatureCtrl.h"
 @interface AppDelegate ()
 
 @end
@@ -21,8 +22,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     //2.设置根控制器为UITabBarController
     //封装自控制器的代码放在自定义的IWTabBarController.h中
-    IWTabBarController *tabbar = [[IWTabBarController alloc] init];
-    self.window.rootViewController = tabbar;
+    //IWTabBarController *tabbar = [[IWTabBarController alloc] init];
+    self.window.rootViewController = [IWNewFeatureCtrl new];
     //3.成为主window并显示
     [self.window makeKeyAndVisible];
     return YES;
