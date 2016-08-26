@@ -8,6 +8,8 @@
 
 #import "IWNewFeatureCtrl.h"
 #import "IWTabBarController.h"
+#import "IWOAuthViewCtrl.h"
+#import "IWAccount.h"
 @interface IWNewFeatureCtrl ()<UIScrollViewDelegate>
 @property(nonatomic, weak)UIPageControl *pageControl;
 @end
@@ -98,6 +100,7 @@
 -(void)enterBtnClick:(UIButton *)btn{
     //进入首页
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    window.rootViewController = [IWTabBarController new];
+
+    [window switchRootViewCtrl];
 }
 @end

@@ -8,7 +8,9 @@
 
 #import "AppDelegate.h"
 #import "IWTabBarController.h"
+#import "IWOAuthViewCtrl.h"
 #import "IWNewFeatureCtrl.h"
+#import "IWAccount.h"
 @interface AppDelegate ()
 
 @end
@@ -17,12 +19,23 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    //1.取消了Main interface所以要创建一个window
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [self switchRootViewCtrl];
+    
+    
+
+    //3.成为主window并显示
+    [self.window makeKeyAndVisible];
+    return YES;
+}
+
+-(void)switchRootViewCtrl{
     //当前版本号
     NSString *currentshortVersionStr = [NSBundle mainBundle].infoDictionary[kShortVersionStr];
     //存储的版本号
     NSString *saveVersionStr = [[NSUserDefaults standardUserDefaults] stringForKey:kShortVersionStr];
-    //1.取消了Main interface所以要创建一个window
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     //2.设置根控制器为UITabBarController
     //封装自控制器的代码放在自定义的IWTabBarController.h中
     //判断字符串大小，返回的是降序（大于）、升序（小于）、相等
@@ -32,14 +45,8 @@
         //保存当前版本号
         [[NSUserDefaults standardUserDefaults] setObject:currentshortVersionStr forKey:kShortVersionStr];
     }else{
-        IWTabBarController *tabbar = [[IWTabBarController alloc] init];
-        self.window.rootViewController = tabbar;
+        [self.window switchRootViewCtrl];
     }
-    
-    
-    //3.成为主window并显示
-    [self.window makeKeyAndVisible];
-    return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
