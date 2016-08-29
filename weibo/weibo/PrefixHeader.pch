@@ -12,10 +12,17 @@
 #define SCREENW [UIScreen mainScreen].bounds.size.width
 #define SCREENH [UIScreen mainScreen].bounds.size.height
 #define kShortVersionStr @"CFBundleShortVersionString"
+#ifdef DEBUG
+#define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#define NSLog(...)
+#endif
+
+
 
 #import "UIView+Extension.h"
 #import "UIBarButtonItem+Extension.h"
 #import "UIView+Extension.h"
 #import "UIWindow+Extension.h"
-
+#import "UIViewController+ESSeparatorInset.h"
 #endif /* PrefixHeader_pch */

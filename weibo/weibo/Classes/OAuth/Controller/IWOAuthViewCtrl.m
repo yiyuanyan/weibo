@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "IWTabBarController.h"
 #import "IWAccount.h"
+#import "IWAccountTool.h"
 #define Client_id @"3747445191"
 #define Client_secret @"5f1c562002281f9de59e8580cd7fba46"
 //授权回调
@@ -71,12 +72,7 @@
         IWAccount *acount = [IWAccount new];
         //将返回来的数据转入模型
         [acount setValuesForKeysWithDictionary:responseObject];
-        //获取保存路径
-        NSString *filePath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
-        //拼接保存路径文件路径
-        filePath = [filePath stringByAppendingString:@"account.archiver"];
-        //归档保存数据
-        [NSKeyedArchiver archiveRootObject:acount toFile:filePath];
+        [IWAccountTool saveAccount:acount ];
         //密码归档登录成功跳转页面
         IWTabBarController *ctrl = [IWTabBarController new];
         //切换window的控制器

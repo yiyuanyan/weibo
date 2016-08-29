@@ -10,13 +10,11 @@
 #import "IWTabBarController.h"
 #import "IWOAuthViewCtrl.h"
 #import "IWAccount.h"
+#import "IWAccountTool.h"
 @implementation UIWindow (Extension)
 -(void)switchRootViewCtrl{
-    //获取保存路径
-    NSString *filePath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
-    //拼接保存路径文件路径
-    filePath = [filePath stringByAppendingString:@"account.archiver"];
-    IWAccount *account = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+    
+    IWAccount *account = [IWAccountTool account];
     if(!account){
         self.rootViewController = [IWOAuthViewCtrl new];
     }else{

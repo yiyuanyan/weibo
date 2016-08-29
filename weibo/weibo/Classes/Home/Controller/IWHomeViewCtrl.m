@@ -10,16 +10,47 @@
 #import "IWTemp2ViewCtrl.h"
 #import "IWPopView.h"
 #import "IWHomeTitleButton.h"
-@interface IWHomeViewCtrl ()
+#import "IWAccount.h"
+#import "IWAccountTool.h"
+#import "AFHTTPSessionManager.h"
+#import "IWUser.h"
+#import "MJExtension.h"
+#import "IWStatus.h"
 
+@interface IWHomeViewCtrl ()
+@property(nonatomic, strong)NSMutableArray *statusArray;
 @end
 
 @implementation IWHomeViewCtrl
-
+-(NSMutableArray *)statusArray{
+    if(!_statusArray){
+        self.statusArray = [NSMutableArray array];
+    }
+    return _statusArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    UIView *footerView = [UIView new];
+    //footerView.height = 0.1;
+    self.tableView.tableFooterView = footerView;
+    [self setSeparatorInsetZeroWithTableView:self.tableView];
     [self setupNav];
+    [self getUserInfo];
+    //[self loadNewStatues];
+    
+    [self setRefreshView];
+    
+}
+-(void)setRefreshView{
+    //创建刷新空间
+    UIRefreshControl *refreshCtrl = [[UIRefreshControl alloc] init];
+    //给刷新空间添加改变的监听事件，loadNewStatues:为加载数据方法，并且将refreshCtrl传递过去
+    [refreshCtrl addTarget:self action:@selector(loadNewStatues:) forControlEvents:UIControlEventValueChanged];
+    
+    //将刷新控件添加到tableView中，下拉就可刷新数据
+    [self.tableView addSubview:refreshCtrl];
+    [self loadNewStatues:refreshCtrl];
+    //要在数据加载完成后结束刷新状态,这里在loadNewStatues方法中结束[refreshCtrl endRefreshing]
 }
 //设置顶部导航栏的内容
 -(void)setupNav{
@@ -53,23 +84,26 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 0;
+    return self.statusArray.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
+    static NSString *identifier = @"cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if(!cell){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    }
     // Configure the cell...
-    
+    cell.textLabel.text = [self.statusArray[indexPath.row] text];
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
@@ -115,6 +149,59 @@
 }
 */
 #pragma mark - 私有方法
+//获取首页信息
+-(void)loadNewStatues:(UIRefreshControl *)refreshControl{
+    IWAccount *account = [IWAccountTool account];
+    
+    NSString *urlStr = @"https://api.weibo.com/2/statuses/friends_timeline.json";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+    params[@"count"] = @(5);
+    if([self.statusArray firstObject]){
+        params[@"since_id"] = @([[self.statusArray firstObject] id]);
+    }
+    
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:urlStr parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSArray *statuesDic = responseObject[@"statuses"];
+        NSArray *statues = [IWStatus objectArrayWithKeyValuesArray:statuesDic];
+        NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, statues.count)];
+        [self.statusArray insertObjects:statues atIndexes:set];
+        //self.statusArray = statues;
+        [self.tableView reloadData];
+        //结束刷新状态
+        [refreshControl endRefreshing];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //结束刷新状态
+        [refreshControl endRefreshing];
+    }];
+}
+//获取个人信息
+-(void)getUserInfo{
+    IWAccount *account = [IWAccountTool account];
+    NSString *urlStr = @"https://api.weibo.com/2/users/show.json";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+    params[@"uid"] = account.uid;
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"application/json"];
+    [manager GET:urlStr parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        IWUser *user = [[IWUser alloc] init];
+        [user setKeyValues:responseObject];
+        IWHomeTitleButton *button = (IWHomeTitleButton *)self.navigationItem.titleView;
+        [button setTitle:user.screen_name forState:UIControlStateNormal];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"请求失败：%@",error);
+    }];
+}
+
 -(void)titleBtnClick:(UIButton *)btn{
     UIView *customView = [[UIView alloc] init];
     customView.backgroundColor = [UIColor redColor];
@@ -133,4 +220,5 @@
 -(void)pop{
     NSLog(@"%s",__func__);
 }
+
 @end
