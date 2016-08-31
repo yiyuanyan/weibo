@@ -22,6 +22,10 @@
 		35439ACB1D701CE700591AEE /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 35439AC51D701CE700591AEE /* AFURLSessionManager.m */; };
 		35439ACF1D70274100591AEE /* IWAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 35439ACE1D70274100591AEE /* IWAccount.m */; };
 		35439AD21D7042AE00591AEE /* UIWindow+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 35439AD11D7042AE00591AEE /* UIWindow+Extension.m */; };
+		356F3F4D1D752F0900731604 /* IWLoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 356F3F4C1D752F0900731604 /* IWLoadMoreView.m */; };
+		356F3F4F1D75345A00731604 /* IWLoadMoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 356F3F4E1D75345A00731604 /* IWLoadMoreView.xib */; };
+		356F3F521D755BB800731604 /* IWUnReadCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 356F3F511D755BB800731604 /* IWUnReadCount.m */; };
+		356F3F551D7584BA00731604 /* IWTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 356F3F541D7584BA00731604 /* IWTabBarItem.m */; };
 		357F61851D73CF0300FD6572 /* IWAccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 357F61841D73CF0300FD6572 /* IWAccountTool.m */; };
 		357F61881D73FED300FD6572 /* IWUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 357F61871D73FED300FD6572 /* IWUser.m */; };
 		357F61A01D74001D00FD6572 /* Info2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 357F618A1D74001D00FD6572 /* Info2.plist */; };
@@ -104,6 +108,13 @@
 		35439ACE1D70274100591AEE /* IWAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWAccount.m; sourceTree = "<group>"; };
 		35439AD01D7042AE00591AEE /* UIWindow+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+Extension.h"; sourceTree = "<group>"; };
 		35439AD11D7042AE00591AEE /* UIWindow+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Extension.m"; sourceTree = "<group>"; };
+		356F3F4B1D752F0900731604 /* IWLoadMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWLoadMoreView.h; sourceTree = "<group>"; };
+		356F3F4C1D752F0900731604 /* IWLoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWLoadMoreView.m; sourceTree = "<group>"; };
+		356F3F4E1D75345A00731604 /* IWLoadMoreView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IWLoadMoreView.xib; sourceTree = "<group>"; };
+		356F3F501D755BB800731604 /* IWUnReadCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWUnReadCount.h; sourceTree = "<group>"; };
+		356F3F511D755BB800731604 /* IWUnReadCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWUnReadCount.m; sourceTree = "<group>"; };
+		356F3F531D7584BA00731604 /* IWTabBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWTabBarItem.h; sourceTree = "<group>"; };
+		356F3F541D7584BA00731604 /* IWTabBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWTabBarItem.m; sourceTree = "<group>"; };
 		357F61831D73CF0300FD6572 /* IWAccountTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWAccountTool.h; sourceTree = "<group>"; };
 		357F61841D73CF0300FD6572 /* IWAccountTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWAccountTool.m; sourceTree = "<group>"; };
 		357F61861D73FED300FD6572 /* IWUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWUser.h; sourceTree = "<group>"; };
@@ -445,6 +456,8 @@
 				357F61871D73FED300FD6572 /* IWUser.m */,
 				357F61AE1D74072100FD6572 /* IWStatus.h */,
 				357F61AF1D74072100FD6572 /* IWStatus.m */,
+				356F3F501D755BB800731604 /* IWUnReadCount.h */,
+				356F3F511D755BB800731604 /* IWUnReadCount.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -456,6 +469,9 @@
 				35AEA6FB1D6D777E00FF9522 /* IWHomeTitleButton.m */,
 				35AEA72D1D6D809800FF9522 /* IWPopView.h */,
 				35AEA72E1D6D809800FF9522 /* IWPopView.m */,
+				356F3F4B1D752F0900731604 /* IWLoadMoreView.h */,
+				356F3F4C1D752F0900731604 /* IWLoadMoreView.m */,
+				356F3F4E1D75345A00731604 /* IWLoadMoreView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -563,6 +579,8 @@
 		35AEA7111D6D777E00FF9522 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				356F3F531D7584BA00731604 /* IWTabBarItem.h */,
+				356F3F541D7584BA00731604 /* IWTabBarItem.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -722,6 +740,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				357F61A01D74001D00FD6572 /* Info2.plist in Resources */,
+				356F3F4F1D75345A00731604 /* IWLoadMoreView.xib in Resources */,
 				351DD87A1D5C1EC800AAA9CF /* Assets.xcassets in Resources */,
 				35AEA7291D6D777E00FF9522 /* IWSearchView.xib in Resources */,
 			);
@@ -768,11 +787,13 @@
 				35AEA7231D6D777E00FF9522 /* UIBarButtonItem+Extension.m in Sources */,
 				35AEA7251D6D777E00FF9522 /* UIView+Inspectable.m in Sources */,
 				35439AD21D7042AE00591AEE /* UIWindow+Extension.m in Sources */,
+				356F3F551D7584BA00731604 /* IWTabBarItem.m in Sources */,
 				357F61A31D74001D00FD6572 /* MJProperty.m in Sources */,
 				357F61A91D74001D00FD6572 /* NSObject+MJProperty.m in Sources */,
 				35439ACF1D70274100591AEE /* IWAccount.m in Sources */,
 				351DD86F1D5C1EC800AAA9CF /* main.m in Sources */,
 				3529FE151D6E9AF2002FDF13 /* IWNewFeatureCtrl.m in Sources */,
+				356F3F4D1D752F0900731604 /* IWLoadMoreView.m in Sources */,
 				357F61A11D74001D00FD6572 /* MJExtensionConst.m in Sources */,
 				357F61881D73FED300FD6572 /* IWUser.m in Sources */,
 				35439AC91D701CE700591AEE /* AFURLRequestSerialization.m in Sources */,
@@ -785,6 +806,7 @@
 				357F61B01D74072100FD6572 /* IWStatus.m in Sources */,
 				357F61A21D74001D00FD6572 /* MJFoundation.m in Sources */,
 				35AEA7201D6D777E00FF9522 /* IWDiscoverViewCtrl.m in Sources */,
+				356F3F521D755BB800731604 /* IWUnReadCount.m in Sources */,
 				35AEA72F1D6D809800FF9522 /* IWPopView.m in Sources */,
 				35439ACB1D701CE700591AEE /* AFURLSessionManager.m in Sources */,
 			);

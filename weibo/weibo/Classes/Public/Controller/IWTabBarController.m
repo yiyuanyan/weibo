@@ -11,6 +11,7 @@
 #import "IWTabBar.h"
 #import "IWNavigationController.h"
 #import "IWDiscoverViewCtrl.h"
+#import "IWTabBarItem.h"
 @interface IWTabBarController ()<IWTabBarDelegate>
 
 @end
@@ -49,6 +50,7 @@
     //按钮文字
     //ctrl.tabBarItem.title = title;
     ctrl.title = title;
+    ctrl.tabBarItem = [IWTabBarItem new];
     //按钮图片，imageWithRenderingMode:状态 为取消默认渲染图片颜色
     ctrl.tabBarItem.image = [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     //按钮选中状态下的图片

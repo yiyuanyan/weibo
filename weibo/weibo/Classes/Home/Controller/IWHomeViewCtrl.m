@@ -16,9 +16,14 @@
 #import "IWUser.h"
 #import "MJExtension.h"
 #import "IWStatus.h"
-
+#import "IWLoadMoreView.h"
+#import "IWUnReadCount.h"
+#import <objc/runtime.h>
+//默认加载条数
+#define LOAD_COUNT 20
 @interface IWHomeViewCtrl ()
 @property(nonatomic, strong)NSMutableArray *statusArray;
+@property(nonatomic,assign) BOOL isLoadMore;
 @end
 
 @implementation IWHomeViewCtrl
@@ -39,6 +44,15 @@
     //[self loadNewStatues];
     
     [self setRefreshView];
+    //self.tabBarItem.badgeValue = @"10";
+    
+    
+    //定时执行
+    NSTimer *time = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(loadUnReadCount) userInfo:nil repeats:YES];
+    //激活定时执行
+    [time fire];
+    NSRunLoop *runloop = [NSRunLoop mainRunLoop];
+    [runloop addTimer:time forMode:NSRunLoopCommonModes];
     
 }
 -(void)setRefreshView{
@@ -49,8 +63,50 @@
     
     //将刷新控件添加到tableView中，下拉就可刷新数据
     [self.tableView addSubview:refreshCtrl];
+    [refreshCtrl beginRefreshing];
     [self loadNewStatues:refreshCtrl];
     //要在数据加载完成后结束刷新状态,这里在loadNewStatues方法中结束[refreshCtrl endRefreshing]
+    
+    //设置加载更多的view
+    IWLoadMoreView *loadMoreView = [IWLoadMoreView loadMoreView];
+    loadMoreView.hidden = YES;
+    self.tableView.tableFooterView = loadMoreView;
+}
+- (void)temp{
+    for (UIView *tabBarChild in self.tabBarController.tabBar.subviews) {
+        if ([tabBarChild isKindOfClass:NSClassFromString(@"UITabBarButton")]) {
+            for (UIView *tabBarButtonChild in tabBarChild.subviews) {
+                if ([tabBarButtonChild isKindOfClass:NSClassFromString(@"_UIBadgeView")]) {
+                    for (UIView * badgeViewChild in tabBarButtonChild.subviews) {
+                        if ([badgeViewChild isKindOfClass:NSClassFromString(@"_UIBadgeBackground")]) {
+                            NSLog(@"终于找到你，还好没放弃");
+                            NSLog(@"%@",badgeViewChild);
+                            unsigned int count;
+                            //获取某个类身上的所有属性
+                            Ivar *ivars = class_copyIvarList([badgeViewChild class], &count);
+                            
+                            for (int i = 0; i < count; i++) {
+                                Ivar ivar = ivars[i];
+                                
+                                //获取属性的名字
+                                NSString *ivarName = [NSString stringWithCString:ivar_getName(ivar) encoding:NSUTF8StringEncoding];
+                                //获取属性的类型
+                                NSString *ivarType = [NSString stringWithCString:ivar_getTypeEncoding(ivar) encoding:NSUTF8StringEncoding];
+                                //判断如果当前是_image属性
+                                if ([ivarName isEqualToString:@"_image"]) {
+                                    
+                                    UIImage *image = [UIImage imageNamed:@"main_badge"];
+                                    //通过kvc去设置某个对象身上的某个属性的值
+                                    [badgeViewChild setValue:image forKeyPath:@"image"];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 }
 //设置顶部导航栏的内容
 -(void)setupNav{
@@ -104,51 +160,82 @@
     return cell;
 }
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    if(self.statusArray.count == 0 || self.tableView.tableFooterView.hidden==NO){
+        return;
+    }
+    if(self.statusArray.count == 0){
+        return ;
+    }
+    CGFloat result = scrollView.contentSize.height - SCREENH;
+    //判断是否滑动到底部
+    if(result <= scrollView.contentOffset.y - self.tabBarController.tabBar.height){
+        self.tableView.tableFooterView.hidden = NO;
+
+        [self loadMoreStatues];
+    }
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 #pragma mark - 私有方法
+-(void)loadUnReadCount{
+    IWAccount *account = [IWAccountTool account];
+    NSString *urlStr = @"https://rm.api.weibo.com/2/remind/unread_count.json";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+    params[@"uid"] = account.uid;
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
+    [manager GET:urlStr parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        IWUnReadCount *unReadCount = [IWUnReadCount new];
+        [unReadCount mj_setKeyValues:responseObject];
+        //unReadCount.status = 1;
+        if(unReadCount.status){
+            self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%zd",unReadCount.status];
+            NSInteger number = unReadCount.status;
+            [UIApplication sharedApplication].applicationIconBadgeNumber = number;
+        }else{
+            self.tabBarItem.badgeValue = nil;
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+}
+//加载更多微博
+-(void)loadMoreStatues{
+    IWAccount *account = [IWAccountTool account];
+    NSString *urlStr = @"https://api.weibo.com/2/statuses/friends_timeline.json";
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+    params[@"count"] = @(LOAD_COUNT);
+    if([self.statusArray lastObject]){
+        params[@"since_id"] = @([[self.statusArray lastObject] id] - 1);
+    }
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:urlStr parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSArray *statuesDic = responseObject[@"statuses"];
+        NSArray *statues = [IWStatus objectArrayWithKeyValuesArray:statuesDic];
+        //NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, statues.count)];
+        [self.statusArray addObjectsFromArray:statues];
+        //self.statusArray = statues;
+        [self.tableView reloadData];
+        //结束刷新状态
+        self.isLoadMore = NO;
+        self.tableView.tableFooterView.hidden = YES;
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //结束刷新状态
+        //self.isLoadMore = NO;
+        self.tableView.tableFooterView.hidden = YES;
+    }];
+}
 //获取首页信息
 -(void)loadNewStatues:(UIRefreshControl *)refreshControl{
     IWAccount *account = [IWAccountTool account];
@@ -156,7 +243,7 @@
     NSString *urlStr = @"https://api.weibo.com/2/statuses/friends_timeline.json";
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = account.access_token;
-    params[@"count"] = @(5);
+    params[@"count"] = @(LOAD_COUNT);
     if([self.statusArray firstObject]){
         params[@"since_id"] = @([[self.statusArray firstObject] id]);
     }
@@ -170,10 +257,11 @@
         NSArray *statues = [IWStatus objectArrayWithKeyValuesArray:statuesDic];
         NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, statues.count)];
         [self.statusArray insertObjects:statues atIndexes:set];
-        //self.statusArray = statues;
+        
         [self.tableView reloadData];
         //结束刷新状态
         [refreshControl endRefreshing];
+        //self.tabBarItem.badgeValue = nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //结束刷新状态
         [refreshControl endRefreshing];

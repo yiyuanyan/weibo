@@ -24,6 +24,14 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self switchRootViewCtrl];
     
+    if([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0){
+        //初始化一个图标数字通知
+        UIUserNotificationSettings *setting = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
+        //注册通知
+        [application registerUserNotificationSettings:setting];
+    }
+    
+    
     
 
     //3.成为主window并显示
@@ -53,10 +61,12 @@
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
-
+//APP进入后台
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    //允许APP在后台短期运行，可以执行NSTimer
+    UIBackgroundTaskIdentifier identifier = [application beginBackgroundTaskWithExpirationHandler:^{
+        [application endBackgroundTask:identifier];
+    }];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
