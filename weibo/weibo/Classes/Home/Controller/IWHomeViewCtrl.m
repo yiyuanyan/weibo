@@ -18,25 +18,29 @@
 #import "IWStatus.h"
 #import "IWLoadMoreView.h"
 #import "IWUnReadCount.h"
+#import "IWStatusCell.h"
+#import "IWStatusFrame.h"
 #import <objc/runtime.h>
 //默认加载条数
 #define LOAD_COUNT 20
+#define identifier @"IWStatusCell"
 @interface IWHomeViewCtrl ()
-@property(nonatomic, strong)NSMutableArray *statusArray;
+@property(nonatomic, strong)NSMutableArray *statusFrames;
 @property(nonatomic,assign) BOOL isLoadMore;
 @end
 
 @implementation IWHomeViewCtrl
--(NSMutableArray *)statusArray{
-    if(!_statusArray){
-        self.statusArray = [NSMutableArray array];
+-(NSMutableArray *)statusFrames{
+    if(!_statusFrames){
+        self.statusFrames = [NSMutableArray array];
     }
-    return _statusArray;
+    return _statusFrames;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     UIView *footerView = [UIView new];
     //footerView.height = 0.1;
+    [self.tableView registerClass:[IWStatusCell class] forCellReuseIdentifier:identifier];
     self.tableView.tableFooterView = footerView;
     [self setSeparatorInsetZeroWithTableView:self.tableView];
     [self setupNav];
@@ -48,11 +52,11 @@
     
     
     //定时执行
-    NSTimer *time = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(loadUnReadCount) userInfo:nil repeats:YES];
-    //激活定时执行
-    [time fire];
-    NSRunLoop *runloop = [NSRunLoop mainRunLoop];
-    [runloop addTimer:time forMode:NSRunLoopCommonModes];
+//    NSTimer *time = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(loadUnReadCount) userInfo:nil repeats:YES];
+//    //激活定时执行
+//    [time fire];
+//    NSRunLoop *runloop = [NSRunLoop mainRunLoop];
+//    [runloop addTimer:time forMode:NSRunLoopCommonModes];
     
 }
 -(void)setRefreshView{
@@ -145,28 +149,27 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return self.statusArray.count;
+    return self.statusFrames.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *identifier = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if(!cell){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-    }
-    // Configure the cell...
-    cell.textLabel.text = [self.statusArray[indexPath.row] text];
+    IWStatusCell *cell = [IWStatusCell cellWithTableView:tableView];
+    [cell setStatusFrame:self.statusFrames[indexPath.row]];
     return cell;
+    
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self.statusFrames[indexPath.row] cellHeight];
+}
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 
-    if(self.statusArray.count == 0 || self.tableView.tableFooterView.hidden==NO){
+    if(self.statusFrames.count == 0 || self.tableView.tableFooterView.hidden==NO){
         return;
     }
-    if(self.statusArray.count == 0){
+    if(self.statusFrames.count == 0){
         return ;
     }
     CGFloat result = scrollView.contentSize.height - SCREENH;
@@ -213,8 +216,9 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = account.access_token;
     params[@"count"] = @(LOAD_COUNT);
-    if([self.statusArray lastObject]){
-        params[@"since_id"] = @([[self.statusArray lastObject] id] - 1);
+    if([self.statusFrames lastObject]){
+        IWStatusFrame *frame = [self.statusFrames firstObject];
+        params[@"max_id"] = @(frame.status.id - 1);
     }
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager GET:urlStr parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -223,8 +227,10 @@
         
         NSArray *statuesDic = responseObject[@"statuses"];
         NSArray *statues = [IWStatus objectArrayWithKeyValuesArray:statuesDic];
-        //NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, statues.count)];
-        [self.statusArray addObjectsFromArray:statues];
+        NSArray *statuesFrames = [self converToFrameWithStatises:statues];
+        
+        
+        [self.statusFrames addObjectsFromArray:statuesFrames];
         //self.statusArray = statues;
         [self.tableView reloadData];
         //结束刷新状态
@@ -244,8 +250,9 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = account.access_token;
     params[@"count"] = @(LOAD_COUNT);
-    if([self.statusArray firstObject]){
-        params[@"since_id"] = @([[self.statusArray firstObject] id]);
+    if([self.statusFrames firstObject]){
+        IWStatusFrame *frame = [self.statusFrames firstObject];
+        params[@"since_id"] = @(frame.status.id);
     }
     
     
@@ -255,16 +262,54 @@
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSArray *statuesDic = responseObject[@"statuses"];
         NSArray *statues = [IWStatus objectArrayWithKeyValuesArray:statuesDic];
+        //TODO 把statues模型转Frame模型
+        NSArray *statuesFrames = [self converToFrameWithStatises:statues];
         NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, statues.count)];
-        [self.statusArray insertObjects:statues atIndexes:set];
+        [self.statusFrames insertObjects:statuesFrames atIndexes:set];
         
         [self.tableView reloadData];
         //结束刷新状态
         [refreshControl endRefreshing];
-        //self.tabBarItem.badgeValue = nil;
+        [self showLoadCountLabelWithCount:statues.count];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //结束刷新状态
         [refreshControl endRefreshing];
+    }];
+}
+-(NSArray *)converToFrameWithStatises:(NSArray *)statues{
+    NSMutableArray *statusArray = [NSMutableArray array];
+    for (IWStatus *status in statues) {
+        IWStatusFrame *frame = [[IWStatusFrame alloc]init];
+        frame.status = status;
+        [statusArray addObject:frame];
+    }
+    return [statusArray copy];
+}
+//显示加载条数
+-(void)showLoadCountLabelWithCount:(NSInteger)count{
+    //根据下拉刷新的条数显示
+    UILabel *textLabel = [UILabel new];
+    NSString *string = @"没有最新微博数据";
+    if(count){
+        string = [NSString stringWithFormat:@"共加载出%zd条数据",count];
+    }
+    textLabel.text = string;
+    textLabel.backgroundColor = [UIColor orangeColor];
+    textLabel.font = SYS_FONT(15);
+    textLabel.textColor = [UIColor whiteColor];
+    textLabel.textAlignment = NSTextAlignmentCenter;
+    textLabel.size = CGSizeMake(SCREENW, 35);
+    textLabel.y = 64-textLabel.height;
+    [self.navigationController.view insertSubview:textLabel belowSubview:self.navigationController.navigationBar];
+    [UIView animateWithDuration:1 animations:^{
+        //textLabel.y = 64;
+        textLabel.transform = CGAffineTransformMakeTranslation(0, textLabel.height);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:1 delay:1 options:0 animations:^{
+            textLabel.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+            [textLabel removeFromSuperview];
+        }];
     }];
 }
 //获取个人信息

@@ -11,4 +11,5 @@
 @interface IWUser : NSObject
 //用户昵称
 @property(nonatomic, copy)NSString *screen_name;
+@property(nonatomic, copy)NSString *profile_image_url;
 @end

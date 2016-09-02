@@ -56,7 +56,8 @@
     //按钮选中状态下的图片
     ctrl.tabBarItem.selectedImage = [[UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",imageName]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     //设置tabBar的文字颜色
-    self.tabBar.tintColor = [UIColor orangeColor];
+    self.tabBar.tintColor = [UIColor blueColor];
+    
     IWNavigationController *navCtrl = [[IWNavigationController alloc] initWithRootViewController:ctrl];
     
     [self addChildViewController:navCtrl];
